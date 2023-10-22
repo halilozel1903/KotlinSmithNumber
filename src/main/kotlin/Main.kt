@@ -9,28 +9,28 @@ fun main() {
     }
 }
 
-fun isSmithNumber(n: Int): Boolean {
-    if (n < 4) {
+fun isSmithNumber(num: Int): Boolean {
+    if (num < 4) {
         return false
     }
-    val digitsSum = sumOfDigits(n)
-    val factorsSum = primeFactors(n).map { sumOfDigits(it) }.sum()
+    val digitsSum = sumOfDigits(num)
+    val factorsSum = primeFactors(num).sumOf { sumOfDigits(it) }
     return digitsSum == factorsSum
 }
 
 fun primeFactors(n: Int): List<Int> {
-    var num = n
+    var number = n
     val factors = mutableListOf<Int>()
     var i = 2
-    while (i <= num / i) {
-        while (num % i == 0) {
+    while (i <= number / i) {
+        while (number % i == 0) {
             factors.add(i)
-            num /= i
+            number /= i
         }
         i++
     }
-    if (num > 1) {
-        factors.add(num)
+    if (number > 1) {
+        factors.add(number)
     }
     return factors
 }
