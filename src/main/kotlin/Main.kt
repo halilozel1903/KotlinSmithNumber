@@ -6,7 +6,7 @@ fun main() {
 
 fun isSmithNumber(num: Int): Boolean {
     return if (num < 4) false
-    else sumOfDigits(num) == primeFactors(num).sumBy { sumOfDigits(it) }
+    else sumOfDigits(num) == primeFactors(num).sumOf { sumOfDigits(it) }
 }
 
 fun primeFactors(n: Int): List<Int> {
@@ -24,5 +24,5 @@ fun primeFactors(n: Int): List<Int> {
 }
 
 fun sumOfDigits(n: Int): Int {
-    return n.toString().sumBy { it - '0' }
+    return n.toString().sumOf { it - '0' }
 }
