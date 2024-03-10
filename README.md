@@ -11,50 +11,32 @@ Here is a program in `Kotlin` that finds all the Smith numbers within a given ra
 
 ```kotlin
 fun main() {
-    val start = 1
-    val end = 100
-    println("Smith numbers between $start and $end:")
-    for (i in start..end) {
-        if (isSmithNumber(i)) {
-            println(i)
-        }
-    }
+    val range = 1..100
+    println("Smith numbers between ${range.first} and ${range.last}:")
+    range.filter { isSmithNumber(it) }.forEach(::println)
 }
 
-fun isSmithNumber(n: Int): Boolean {
-    if (n < 4) {
-        return false
-    }
-    val digitsSum = sumOfDigits(n)
-    val factorsSum = primeFactors(n).map { sumOfDigits(it) }.sum()
-    return digitsSum == factorsSum
+fun isSmithNumber(num: Int): Boolean {
+    return if (num < 4) false
+    else sumOfDigits(num) == primeFactors(num).sumOf { sumOfDigits(it) }
 }
 
 fun primeFactors(n: Int): List<Int> {
-    var num = n
+    var number = n
     val factors = mutableListOf<Int>()
     var i = 2
-    while (i <= num / i) {
-        while (num % i == 0) {
+    while (i <= number) {
+        while (number % i == 0) {
             factors.add(i)
-            num /= i
+            number /= i
         }
         i++
-    }
-    if (num > 1) {
-        factors.add(num)
     }
     return factors
 }
 
 fun sumOfDigits(n: Int): Int {
-    var num = n
-    var sum = 0
-    while (num > 0) {
-        sum += num % 10
-        num /= 10
-    }
-    return sum
+    return n.toString().sumOf { it - '0' }
 }
 ```
 The `main` function sets a range for which Smith numbers are to be found, and loops through each number in the range. If a number is found to be a Smith number, it is printed to the console.
